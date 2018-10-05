@@ -19,6 +19,9 @@ const ErrorLine = function ($scope) {
         errorLine.setText(msg);
     });
 
+    $scope.errorLine = $scope.errorLine || {};
+    $scope.errorLine.showMessage = msg => errorLine.setText(msg);
+
     return errorLine;
 };
 
