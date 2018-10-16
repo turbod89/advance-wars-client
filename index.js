@@ -12,11 +12,16 @@ screen.title = 'Client';
 const $scope = {
     server: {
         host: 'localhost',
-        port: '8000',
+        port: '3000',
     },
 };
 
 $scope.screen = screen;
+
+const ioClient = io.connect(`http://${$scope.server.host}:${$scope.server.port}`);
+ioClient.on('error', err => {
+    $scope.errorLine.showMessage(`Error in server http://${$scope.server.host}:${$scope.server.port}`);
+});
 
 $scope.ioClient  = ioClient;
 $scope.focus = $scope.focus || {};
@@ -37,11 +42,6 @@ screen.append(errorLine);
 
 screen.key(['C-c'], (ch,key) => {
 $scope.quit();
-});
-
-const ioClient = io.connect(`http://${$scope.server.host}:${$scope.server.port}`);
-ioClient.on('error', err => {
-    $scope.errorLine.showMessage(`Error in server http://${$scope.server.host}:${$scope.server.port}`);
 });
 
 
